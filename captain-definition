@@ -6,7 +6,7 @@
     "COPY package*.json ./",
     "RUN npm install",
     "COPY . .",
-    "RUN npx prisma generate",
+    "RUN npx prisma generate --generator client {provider=\\\"prisma-client-js\\\",binaryTargets=[\\\"native\\\",\\\"debian-openssl-3.0.x\\\"]}",
     "EXPOSE 3000",
     "CMD [\"npm\", \"start\"]"
   ],
