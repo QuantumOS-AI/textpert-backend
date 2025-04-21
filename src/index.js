@@ -25,6 +25,15 @@ const swaggerOptions = {
       version: '1.0.0',
       description: 'API documentation for the Textpert backend',
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        }
+      }
+    },
   },
 apis: ['src/routes/*.js', 'src/controllers/*.js'], // Path to the API routes and controllers
 };

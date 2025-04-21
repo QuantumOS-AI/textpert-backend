@@ -42,6 +42,10 @@ const jwt = require('jsonwebtoken');
  *               password:
  *                 type: string
  *                 description: The user's password
+ *               logo:
+ *                 type: string
+ *                 nullable: true
+ *                 description: The user's logo (URL or base64 encoded, optional)
  *     responses:
  *       201:
  *         description: User registered successfully
@@ -75,7 +79,7 @@ const jwt = require('jsonwebtoken');
  */
 const registerUser = async (req, res) => {
   try {
-    const { firstName, lastName, companyName, industry, companyAddress, zipCode, email, phone, password } = req.body;
+    const { firstName, lastName, companyName, industry, companyAddress, zipCode, email, phone, password, logo } = req.body;
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -91,10 +95,11 @@ const registerUser = async (req, res) => {
       email,
       phone,
       password: hashedPassword,
+      logo: logo || null, // Set logo to null if not provided
     });
 
     // Generate a JWT token
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
 
     // Send the response
     res.status(201).json({ message: 'User registered successfully', user, token });

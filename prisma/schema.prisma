@@ -24,6 +24,7 @@ model User {
   email       String   @unique
   phone       String
   password    String
+  logo        String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

@@ -34,7 +34,7 @@ const jwt = require('jsonwebtoken');
  *                 description: A success message
  *               user:
  *                 type: object
- *                 description: The user object
+ *                 description: The user object (includes all user fields like firstName, lastName, email, logo, etc.)
  *               token:
  *                 type: string
  *                 description: The JWT token
@@ -81,9 +81,9 @@ const loginUser = async (req, res) => {
     }
 
     // Generate a JWT token
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
 
-    // Send the response
+    // Send the response (user object already contains the logo field)
     res.status(200).json({ message: 'Login successful', user, token });
   } catch (error) {
     console.error(error);

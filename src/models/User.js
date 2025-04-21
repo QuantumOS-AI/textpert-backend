@@ -53,6 +53,19 @@ class User {
       throw new Error(error.message);
     }
   }
+
+  async findUserById(id) {
+    try {
+      const user = await prisma.user.findUnique({
+        where: {
+          id,
+        },
+      });
+      return user;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 }
 
 module.exports = new User();
