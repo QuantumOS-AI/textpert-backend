@@ -5,12 +5,14 @@ const redocExpress = require('redoc-express');
 const redoc = redocExpress.default;
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors()); // Enable CORS for all origins
 app.use(express.json());
 
 // Routes
